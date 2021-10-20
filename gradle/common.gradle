@@ -42,6 +42,7 @@ dependencies {
     implementation dependency.androidx.appcompat
     implementation dependency.androidx.core
     implementation dependency.androidx.constraintlayout
+    implementation dependency.androidx.startup
     implementation dependency.material
     implementation dependency.timber
 
