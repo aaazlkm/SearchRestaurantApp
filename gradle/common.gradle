@@ -44,4 +44,7 @@ dependencies {
     implementation dependency.androidx.constraintlayout
     implementation dependency.material
     implementation dependency.timber
+
+    implementation dependency.dagger.android
+    kapt dependency.dagger.compiler
 }
