@@ -1,4 +1,4 @@
-package com.example.searchrestaurantapp
+package com.example.core
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

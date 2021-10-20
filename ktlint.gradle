@@ -1,0 +1,20 @@
+allprojects {
+    repositories {
+        google()
+    }
+}
+
+configurations {
+    ktlint
+}
+
+dependencies {
+    ktlint dependency.ktlint
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args "-F", "src/**/*.kt", "--reporter=plain?group_by_file,output=${buildDir}/ktlint.txt"
+}

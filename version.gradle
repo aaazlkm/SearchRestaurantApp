@@ -1,0 +1,34 @@
+ext {
+    appmodule = [
+            "presentation": ":presentation",
+            "domain"      : ":domain",
+            "infra"       : ":infra",
+            "core"        : ":core",
+    ]
+
+    constant = [
+            "compileSdkVersion"        : 31,
+            "applicationId"            : "com.example.searchrestaurantapp",
+            "minSdkVersion"            : 21,
+            "targetSdkVersion"         : 31,
+            "versionCode"              : 1,
+            "versionName"              : "1.0.0",
+            "testInstrumentationRunner": "androidx.test.runner.AndroidJUnitRunner",
+    ]
+
+    dependency = [
+            "test"    : [
+                    "junit"   : "junit:junit:",
+                    "ext"     : "androidx.test.ext:junit:1.1.3",
+                    "espresso": "androidx.test.espresso:espresso-core:3.4.0",
+            ],
+            "androidx": [
+                    "appcompat"         : "androidx.appcompat:appcompat:1.3.1",
+                    "core"              : "androidx.core:core-ktx:1.6.0",
+                    "constraintlayout"  : "androidx.constraintlayout:constraintlayout:2.1.1",
+            ],
+            "material": "com.google.android.material:material:1.4.0",
+            "timber"  : "com.jakewharton.timber:timber:5.0.1",
+            "ktlint"  : "com.pinterest:ktlint:0.42.1",
+    ]
+}
