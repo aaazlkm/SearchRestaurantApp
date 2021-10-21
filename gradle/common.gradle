@@ -8,6 +8,16 @@ android {
         versionName constant.versionName
 
         testInstrumentationRunner constant.testInstrumentationRunner
+
+        // hotpepper api keyの設定
+        // local.properties に以下の形式で保存されてると想定。
+        // hotpepper_api_key = <API_KEY>
+        //
+        // API KEYをvcに含めたくないのでこの処理をしてるが、本来local.propertiesはsdk locationを記述する場所なので上手い処理ではない。
+        // いい方法思いついたら修正する
+        def properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        buildConfigField "String", "HOTPEPPER_API_KEY", "\"${properties.getProperty("hotpepper_api_key")}\""
     }
 
     buildTypes {
@@ -39,6 +49,9 @@ dependencies {
     androidTestImplementation dependency.test.ext
     androidTestImplementation dependency.test.espresso
 
+    implementation dependency.kotlinx.serialization
+    implementation dependency.kotlinx.coroutines
+
     implementation dependency.androidx.appcompat
     implementation dependency.androidx.core
     implementation dependency.androidx.constraintlayout
@@ -48,4 +61,10 @@ dependencies {
 
     implementation dependency.dagger.android
     kapt dependency.dagger.compiler
+
+    implementation dependency.retrofit.retrofit
+    implementation dependency.retrofit.converter
+    implementation dependency.retrofit.logging
+
+    implementation dependency.gson
 }
