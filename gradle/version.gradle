@@ -31,6 +31,10 @@ ext {
                     "core"            : "androidx.core:core-ktx:1.6.0",
                     "constraintlayout": "androidx.constraintlayout:constraintlayout:2.1.1",
                     "startup"         : "androidx.startup:startup-runtime:1.1.0",
+                    "lifecycle"       : [
+                            "viewmodel": "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1",
+                            "runtime"  : "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+                    ],
             ],
             "dagger"  : [
                     "android" : "com.google.dagger:hilt-android:2.37",
