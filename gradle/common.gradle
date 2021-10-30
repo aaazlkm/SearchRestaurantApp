@@ -32,8 +32,18 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    buildFeatures {
+        compose true
+    }
+
     kotlinOptions {
+        useIR = true
         jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    composeOptions {
+        kotlinCompilerVersion '1.4.21'
+        kotlinCompilerExtensionVersion '1.1.0-alpha06'
     }
 
     viewBinding {
@@ -49,6 +59,8 @@ dependencies {
     androidTestImplementation dependency.test.ext
     androidTestImplementation dependency.test.espresso
 
+    implementation dependency.accompanist.insets
+
     implementation dependency.kotlinx.serialization
     implementation dependency.kotlinx.coroutines
 
@@ -57,12 +69,24 @@ dependencies {
     implementation dependency.androidx.constraintlayout
     implementation dependency.androidx.startup
     implementation dependency.androidx.lifecycle.viewmodel
+    implementation dependency.androidx.lifecycle.compose
     implementation dependency.androidx.lifecycle.runtime
+    implementation dependency.androidx.compose.ui
+    implementation dependency.androidx.compose.tooling
+    implementation dependency.androidx.compose.foundation
+    implementation dependency.androidx.compose.material.material
+    implementation dependency.androidx.compose.material.core
+    implementation dependency.androidx.compose.material.extended
+    implementation dependency.androidx.compose.activity
+    implementation dependency.androidx.compose.navigation
+    implementation dependency.androidx.compose.paging
+    implementation dependency.androidx.compose.test
 
     implementation dependency.material
     implementation dependency.timber
 
     implementation dependency.dagger.android
+    implementation dependency.dagger.navigation
     kapt dependency.dagger.compiler
 
     implementation dependency.retrofit.retrofit
@@ -70,4 +94,6 @@ dependencies {
     implementation dependency.retrofit.logging
 
     implementation dependency.gson
+
+    implementation dependency.coil
 }

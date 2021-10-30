@@ -5,4 +5,8 @@ data class SearchResult(
     val resultsReturned: Int,
     val resultsStart: Int,
     val shops: List<Shop>
-)
+) {
+
+    val hasNextPage: Boolean
+        get() = resultsAvailable > resultsStart * resultsReturned
+}
