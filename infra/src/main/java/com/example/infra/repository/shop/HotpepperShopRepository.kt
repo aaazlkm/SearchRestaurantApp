@@ -1,8 +1,7 @@
 package com.example.infra.repository.shop
 
 import com.example.domain.core.error.AppError
-import com.example.domain.shop.model.Location
-import com.example.domain.shop.model.SearchRange
+import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.SearchResult
 import com.example.domain.shop.model.Shop
 import com.example.domain.shop.model.ShopId
@@ -19,17 +18,14 @@ class HotpepperShopRepository @Inject constructor(
     private val hotpepperService: HotpepperService,
 ) : ShopRepository {
     override suspend fun fetchNearShops(
-        location: Location,
-        searchRange: SearchRange,
-        start: Int,
-        count: Int
+        searchQuery: SearchQuery
     ): SearchResult {
         val request = FetchNearShopsAPI.Request(
-            lat = location.lat,
-            lng = location.lng,
-            range = SearchRangeMapper.toData(searchRange),
-            start = start,
-            count = count
+            lat = searchQuery.location.lat,
+            lng = searchQuery.location.lng,
+            range = SearchRangeMapper.toData(searchQuery.searchRange),
+            start = searchQuery.start,
+            count = searchQuery.count
         )
         return callHotPepperAPiSafely {
             hotpepperService.fetchNearShops(request.path.value, request.queryParameter)

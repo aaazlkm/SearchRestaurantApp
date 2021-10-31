@@ -2,6 +2,7 @@ package com.example.presentation
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.darkColors
@@ -19,10 +20,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.domain.shop.model.ShopId
 import com.example.presentation.shop.list.ShopListScreen
-import com.example.presentation.shop.search.ShopSearchScreen
 import com.example.presentation.shop.single.ShopSingleScreen
 import com.google.accompanist.insets.ProvideWindowInsets
 
+@ExperimentalMaterialApi
 @Composable
 fun AppContent(
     modifier: Modifier = Modifier,
@@ -41,11 +42,6 @@ fun AppContent(
                     ShopListScreen(
                         onClickShopItem = { appNavController.navigateToShopSingle(it.id) }
                     )
-                }
-                composable(
-                    route = Routes.ShopSearch.path,
-                ) {
-                    ShopSearchScreen()
                 }
                 composable(
                     route = Routes.ShopSingle.path,

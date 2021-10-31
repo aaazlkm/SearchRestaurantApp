@@ -6,6 +6,14 @@
     <string name="error_unknown">ネットワークに繋がっていません</string>
     <string name="error_api_key_or_ip_address">APIキーまたはIPアドレスの認証エラー</string>
     <string name="error_illegal_parameter">パラメータ不正エラーです。再施行してください</string>
+    <string name="search_range_300">300m</string>
+    <string name="search_range_500">500m</string>
+    <string name="search_range_1000">1000m</string>
+    <string name="search_range_2000">2000m</string>
+    <string name="search_range_3000">3000m</string>
+    <string name="shop_list_modal_title">検索条件</string>
+    <string name="shop_list_modal_search_range">検索範囲</string>
+    <string name="shop_list_modal_search_button">検索</string>
     <string name="shop_single_action_place">場所</string>
     <string name="shop_single_action_link">リンク</string>
     <string name="shop_single_action_coupon">クーポン</string>

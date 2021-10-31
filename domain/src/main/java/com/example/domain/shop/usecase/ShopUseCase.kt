@@ -1,7 +1,6 @@
 package com.example.domain.shop.usecase
 
-import com.example.domain.shop.model.Location
-import com.example.domain.shop.model.SearchRange
+import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.SearchResult
 import com.example.domain.shop.model.Shop
 import com.example.domain.shop.model.ShopId
@@ -12,15 +11,9 @@ class ShopUseCase @Inject constructor(
     private val shopRepository: ShopRepository,
 ) {
     suspend fun fetchNearShops(
-        location: Location,
-        searchRange: SearchRange,
-        start: Int,
-        count: Int
+        searchQuery: SearchQuery,
     ): SearchResult = shopRepository.fetchNearShops(
-        location = location,
-        searchRange = searchRange,
-        start = start,
-        count = count
+        searchQuery = searchQuery,
     )
 
     suspend fun fetchShop(

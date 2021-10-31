@@ -3,8 +3,11 @@ package com.example.presentation.shop.list.viewmodel
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.paging.PagingData
+import com.example.domain.shop.model.SearchQuery
+import com.example.domain.shop.model.SearchRange
 import com.example.domain.shop.model.Shop
 import com.example.presentation.core.UnidirectionalViewModel
+import com.example.presentation.shop.list.model.SearchQueryBuilder
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
@@ -12,12 +15,17 @@ import kotlinx.coroutines.flow.flow
 interface ShopListViewModel :
     UnidirectionalViewModel<ShopListViewModel.Event, ShopListViewModel.Effect, ShopListViewModel.State> {
     data class State(
-        val pagindDataFlow: Flow<PagingData<Shop>> = flow { PagingData.empty<Shop>() },
+        val searchQueryBuilder: SearchQueryBuilder = SearchQueryBuilder(),
+        val searchQuery: SearchQuery = SearchQuery(),
+        val shopPagindDataFlow: Flow<PagingData<Shop>> = flow { PagingData.empty<Shop>() },
     )
 
     sealed class Effect
 
-    sealed class Event
+    sealed class Event {
+        data class ChangeSearchRange(val searchRange: SearchRange) : Event()
+        object ClickSearchButton : Event()
+    }
 
     override val state: StateFlow<State>
     override val effectFlow: Flow<Effect>

@@ -10,6 +10,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.example.domain.core.fake.fakeSearchResult
+import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.Shop
 import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.core.getReadableMessage
@@ -22,11 +23,19 @@ import kotlinx.coroutines.flow.flow
 
 @Composable
 fun ShopList(
+    searchQuery: SearchQuery,
     pagingDataFlow: Flow<PagingData<Shop>>,
     onClickShopItem: (Shop) -> Unit,
+    onClickSearchBar: () -> Unit,
 ) {
     val lazyPagingItems = pagingDataFlow.collectAsLazyPagingItems()
     LazyColumn {
+        item {
+            SearchBar(
+                searchQuery = searchQuery,
+                onClick = onClickSearchBar,
+            )
+        }
         items(lazyPagingItems) { it?.let { ShopItem(shop = it, onClick = onClickShopItem) } }
         lazyPagingItems.apply {
             when (val refresh = loadState.refresh) {
@@ -69,8 +78,10 @@ fun ShopList(
 fun PreviewShopList() {
     AppThemeWithBackground {
         ShopList(
+            searchQuery = SearchQuery(),
             pagingDataFlow = flow { PagingData.from(fakeSearchResult().shops) },
-            onClickShopItem = {}
+            onClickShopItem = {},
+            onClickSearchBar = {},
         )
     }
 }

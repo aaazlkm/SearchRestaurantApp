@@ -5,7 +5,6 @@ import com.example.domain.shop.model.ShopId
 
 sealed class Routes {
     object ShopList : Routes()
-    object ShopSearch : Routes()
     object ShopSingle : Routes() {
         sealed class Argument(val key: String) {
             object ShopId : Argument("shopId")
@@ -17,7 +16,6 @@ sealed class Routes {
     val path: String
         get() = when (this) {
             ShopList -> "shop/list/"
-            ShopSearch -> "shop/search/"
             is ShopSingle -> "shop/single/{${ShopSingle.Argument.ShopId.key}}/"
         }
 }

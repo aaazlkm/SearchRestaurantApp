@@ -48,9 +48,9 @@ fun ShopView(
                 .fillMaxWidth()
                 .aspectRatio(1.618f),
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         ShopHeaderView(shop = shop)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         ShopViewDivider()
         Spacer(modifier = Modifier.height(16.dp))
         ShopActionView(
