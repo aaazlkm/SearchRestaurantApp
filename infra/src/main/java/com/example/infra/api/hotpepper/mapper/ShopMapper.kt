@@ -18,9 +18,12 @@ object ShopMapper {
         budget = BudgetMapper.fromData(data.budget),
         budgetMemo = data.budgetMemo,
         capacity = data.capacity,
+        catch = data.catch,
+        mobileAccess = data.mobileAccess,
         urls = UrlsMapper.fromData(data.urls),
         photo = PhotoMapper.fromData(data.photo),
         open = data.open,
         close = data.close,
+        coupon = CouponMapper.fromData(data)
     )
 }

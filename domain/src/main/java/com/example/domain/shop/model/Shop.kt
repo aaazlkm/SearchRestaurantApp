@@ -12,10 +12,13 @@ data class Shop(
     val budget: Budget,
     val budgetMemo: String,
     val capacity: String,
+    val catch: String,
+    val mobileAccess: String,
     val urls: Urls,
     val photo: Photo,
     val open: String,
     val close: String,
+    val coupon: Coupon,
 )
 
 @JvmInline

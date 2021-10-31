@@ -2,7 +2,6 @@ package com.example.presentation.shop.list.view
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,10 +14,9 @@ import com.example.domain.shop.model.Shop
 import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.core.getReadableMessage
 import com.example.presentation.shop.list.ErrorItem
+import com.example.presentation.shop.list.ErrorView
 import com.example.presentation.shop.list.LoadingItem
 import com.example.presentation.shop.list.LoadingView
-import com.example.presentation.shop.list.viewmodel.fakeShopListViewModel
-import com.example.presentation.shop.list.viewmodel.provideShopListViewModelFactory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -37,7 +35,7 @@ fun ShopList(
                 }
                 is LoadState.Error -> {
                     item {
-                        ErrorItem(
+                        ErrorView(
                             message = refresh.error.getReadableMessage(LocalContext.current),
                             modifier = Modifier.fillParentMaxSize(),
                             onClickRetry = { retry() }
@@ -70,13 +68,9 @@ fun ShopList(
 @Composable
 fun PreviewShopList() {
     AppThemeWithBackground {
-        CompositionLocalProvider(
-            provideShopListViewModelFactory { fakeShopListViewModel() },
-        ) {
-            ShopList(
-                pagingDataFlow = flow { PagingData.from(fakeSearchResult().shops) },
-                onClickShopItem = {}
-            )
-        }
+        ShopList(
+            pagingDataFlow = flow { PagingData.from(fakeSearchResult().shops) },
+            onClickShopItem = {}
+        )
     }
 }

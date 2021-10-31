@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -17,8 +16,6 @@ import coil.transform.CircleCropTransformation
 import com.example.domain.core.fake.fakeSearchResult
 import com.example.domain.shop.model.Shop
 import com.example.presentation.AppThemeWithBackground
-import com.example.presentation.shop.list.viewmodel.fakeShopListViewModel
-import com.example.presentation.shop.list.viewmodel.provideShopListViewModelFactory
 
 @Composable
 fun ShopItem(
@@ -48,13 +45,9 @@ fun ShopItem(
 @Composable
 fun PreviewShopItem() {
     AppThemeWithBackground {
-        CompositionLocalProvider(
-            provideShopListViewModelFactory { fakeShopListViewModel() },
-        ) {
-            ShopItem(
-                shop = fakeSearchResult().shops.first(),
-                onClick = {}
-            )
-        }
+        ShopItem(
+            shop = fakeSearchResult().shops.first(),
+            onClick = {}
+        )
     }
 }

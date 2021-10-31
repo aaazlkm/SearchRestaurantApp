@@ -5,7 +5,7 @@ import com.example.infra.api.hotpepper.HotpepperRequest
 import com.example.infra.api.hotpepper.HotpepperResponse
 import com.example.infra.api.hotpepper.model.SearchResultsData
 
-object GetGourmetAPI {
+object FetchNearShopsAPI {
     data class Request(
         val lat: Double,
         val lng: Double,
@@ -21,7 +21,7 @@ object GetGourmetAPI {
             COUNT("count"),
         }
 
-        override val path = HotpepperAPIPath.GET_GOURMET
+        override val path = HotpepperAPIPath.FETCH_SHOPS
 
         override val optionQueryParameter: Map<String, String>
             get() = mapOf(

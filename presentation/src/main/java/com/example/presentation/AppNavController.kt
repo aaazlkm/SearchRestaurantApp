@@ -11,14 +11,14 @@ sealed class Routes {
             object ShopId : Argument("shopId")
         }
 
-        fun pathWithArgument(shopId: ShopId): String = path + "/${shopId.value}"
+        fun pathWithArgument(shopId: ShopId): String = "shop/single/${shopId.value}/"
     }
 
     val path: String
         get() = when (this) {
-            ShopList -> "shop/list"
-            ShopSearch -> "shop/search"
-            is ShopSingle -> "shop/single/${ShopSingle.Argument.ShopId.key}"
+            ShopList -> "shop/list/"
+            ShopSearch -> "shop/search/"
+            is ShopSingle -> "shop/single/{${ShopSingle.Argument.ShopId.key}}/"
         }
 }
 

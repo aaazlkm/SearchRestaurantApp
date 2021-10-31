@@ -23,13 +23,13 @@ inline fun <reified STATE, EFFECT, EVENT> use(
     }
     return StateEffectDispatch(
         state = state,
-        effectFlow = viewModel.effect,
+        effectFlow = viewModel.effectFlow,
         dispatch = dispatch
     )
 }
 
 interface UnidirectionalViewModel<EVENT, EFFECT, STATE> {
     val state: StateFlow<STATE>
-    val effect: Flow<EFFECT>
+    val effectFlow: Flow<EFFECT>
     fun event(event: EVENT)
 }

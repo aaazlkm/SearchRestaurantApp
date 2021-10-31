@@ -25,7 +25,7 @@ class RealShopListViewModel @Inject constructor(
 ) : ViewModel(), ShopListViewModel {
 
     private val _effect = Channel<ShopListViewModel.Effect>(Channel.UNLIMITED)
-    override val effect: Flow<ShopListViewModel.Effect> = _effect.receiveAsFlow()
+    override val effectFlow: Flow<ShopListViewModel.Effect> = _effect.receiveAsFlow()
 
     override val state: StateFlow<ShopListViewModel.State> =
         MutableStateFlow(

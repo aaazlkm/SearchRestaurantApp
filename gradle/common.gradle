@@ -80,7 +80,6 @@ dependencies {
     implementation dependency.androidx.compose.activity
     implementation dependency.androidx.compose.navigation
     implementation dependency.androidx.compose.paging
-    implementation dependency.androidx.compose.test
 
     implementation dependency.material
     implementation dependency.timber

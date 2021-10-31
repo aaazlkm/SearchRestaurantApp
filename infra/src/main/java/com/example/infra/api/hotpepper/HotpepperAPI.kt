@@ -13,7 +13,7 @@ interface HotpepperRequest {
     val queryParameter: Map<String, String>
         get() = coreQueryParameter + optionQueryParameter
 
-    val coreQueryParameter: Map<String, String>
+    private val coreQueryParameter: Map<String, String>
         get() = mapOf(
             QueryName.KEY.queryName to HotpepperAPIConfiguration.HOTPEPPER_API_KEY,
             QueryName.FORMAT.queryName to HotpepperAPIConfiguration.format,

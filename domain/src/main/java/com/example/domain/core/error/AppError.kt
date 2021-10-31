@@ -12,10 +12,12 @@ sealed class AppError : RuntimeException {
             AppError(cause)
 
         class TimeoutException(cause: Throwable?) : AppError(cause)
-        class UnknownException(cause: Throwable?) : AppError(cause)
+        class NotFoundedException(message: String?) : AppError(message)
+        class ParseDataException(message: String?) : AppError(message)
 
         // hotpepper apiはHTTP ステータスコードが常に200で帰ってくるので別でエラーを定義
         data class HotpepperException(val errors: List<HotpepperErrorInfo>) : AppError()
+        class UnknownException(cause: Throwable?) : AppError(cause)
     }
 
     class UnknownException(cause: Throwable?) : AppError(cause)

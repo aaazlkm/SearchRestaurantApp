@@ -20,7 +20,7 @@ interface ShopListViewModel :
     sealed class Event
 
     override val state: StateFlow<State>
-    override val effect: Flow<Effect>
+    override val effectFlow: Flow<Effect>
     override fun event(event: Event)
 }
 
