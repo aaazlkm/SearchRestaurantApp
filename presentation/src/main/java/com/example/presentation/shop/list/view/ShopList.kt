@@ -18,6 +18,7 @@ import com.example.presentation.shop.list.ErrorItem
 import com.example.presentation.shop.list.ErrorView
 import com.example.presentation.shop.list.LoadingItem
 import com.example.presentation.shop.list.LoadingView
+import com.example.presentation.shop.list.model.EmptyImageType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -25,6 +26,7 @@ import kotlinx.coroutines.flow.flow
 fun ShopList(
     searchQuery: SearchQuery,
     pagingDataFlow: Flow<PagingData<Shop>>,
+    emptyImageType: EmptyImageType,
     onClickShopItem: (Shop) -> Unit,
     onClickSearchBar: () -> Unit,
 ) {
@@ -51,8 +53,6 @@ fun ShopList(
                         )
                     }
                 }
-                else -> {
-                }
             }
             when (val append = loadState.append) {
                 is LoadState.Loading -> {
@@ -69,6 +69,14 @@ fun ShopList(
                 else -> {
                 }
             }
+            if (loadState.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && lazyPagingItems.itemCount == 0) {
+                item {
+                    ShopListEmptyView(
+                        emptyImageType = emptyImageType,
+                        modifier = Modifier.fillParentMaxSize(),
+                    )
+                }
+            }
         }
     }
 }
@@ -80,6 +88,7 @@ fun PreviewShopList() {
         ShopList(
             searchQuery = SearchQuery(),
             pagingDataFlow = flow { PagingData.from(fakeSearchResult().shops) },
+            emptyImageType = EmptyImageType.CAKE,
             onClickShopItem = {},
             onClickSearchBar = {},
         )

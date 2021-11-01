@@ -13,6 +13,7 @@ import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.Shop
 import com.example.domain.shop.usecase.ShopUseCase
 import com.example.presentation.shop.list.ShopSource
+import com.example.presentation.shop.list.model.EmptyImageType
 import com.example.presentation.shop.list.model.SearchQueryBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -50,16 +52,21 @@ class RealShopListViewModel @Inject constructor(
             }.flow.cachedIn(viewModelScope)
         }
 
+    private val _emptyImageType: MutableStateFlow<EmptyImageType> =
+        MutableStateFlow(EmptyImageType.FISH)
+
     override val state: StateFlow<ShopListViewModel.State> =
         combine(
             _searchQueryBuilder,
             _searchQuery,
             _shopPagingDataFlow,
-        ) { searchQueryBuilder, searchQuery, shopPagingDataFlow ->
+            _emptyImageType,
+        ) { searchQueryBuilder, searchQuery, shopPagingDataFlow, emptyImageType ->
             ShopListViewModel.State(
                 searchQueryBuilder = searchQueryBuilder,
                 searchQuery = searchQuery,
-                shopPagindDataFlow = shopPagingDataFlow
+                shopPagindDataFlow = shopPagingDataFlow,
+                emptyImageType = emptyImageType,
             )
         }.stateIn(viewModelScope, SharingStarted.Eagerly, ShopListViewModel.State())
 
@@ -87,6 +94,16 @@ class RealShopListViewModel @Inject constructor(
                         }
                     }
                 }
+            }
+        }
+    }
+
+    init {
+        viewModelScope.launch {
+            _searchQuery.collect {
+                // search queryが変更されるたびに、画像を変更する
+                _emptyImageType.value =
+                    EmptyImageType.generateRandomly(without = _emptyImageType.value)
             }
         }
     }

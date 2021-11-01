@@ -7,6 +7,7 @@ import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.SearchRange
 import com.example.domain.shop.model.Shop
 import com.example.presentation.core.UnidirectionalViewModel
+import com.example.presentation.shop.list.model.EmptyImageType
 import com.example.presentation.shop.list.model.SearchQueryBuilder
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,6 +19,7 @@ interface ShopListViewModel :
         val searchQueryBuilder: SearchQueryBuilder = SearchQueryBuilder(),
         val searchQuery: SearchQuery = SearchQuery(),
         val shopPagindDataFlow: Flow<PagingData<Shop>> = flow { PagingData.empty<Shop>() },
+        val emptyImageType: EmptyImageType = EmptyImageType.SUSHI,
     )
 
     sealed class Effect {

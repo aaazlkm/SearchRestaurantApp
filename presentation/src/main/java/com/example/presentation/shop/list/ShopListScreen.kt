@@ -39,6 +39,7 @@ import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.R
 import com.example.presentation.core.use
 import com.example.presentation.dialog.SystemSettingDialog
+import com.example.presentation.shop.list.model.EmptyImageType
 import com.example.presentation.shop.list.model.SearchQueryBuilder
 import com.example.presentation.shop.list.view.BottomSheetContent
 import com.example.presentation.shop.list.view.ShopList
@@ -48,7 +49,6 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @ExperimentalPermissionsApi
@@ -100,6 +100,7 @@ fun ShopListScreen(
         searchQuery = state.searchQuery,
         pagingDataFlow = state.shopPagindDataFlow,
         systemSettingDialogVisible = systemSettingDialogVisible.value,
+        emptyImageType = state.emptyImageType,
         onClickShopItem = onClickShopItem,
         onClickSearchBar = {
             coroutineScope.launch {
@@ -128,7 +129,8 @@ fun ShopListScreen(
     systemSettingDialogVisible: Boolean,
     searchQueryBuilder: SearchQueryBuilder,
     searchQuery: SearchQuery,
-    pagingDataFlow: Flow<PagingData<Shop>> = flow { PagingData.empty<Shop>() },
+    pagingDataFlow: Flow<PagingData<Shop>>,
+    emptyImageType: EmptyImageType,
     onClickShopItem: (Shop) -> Unit,
     onClickSearchBar: () -> Unit,
     onClickSearchRange: (SearchRange) -> Unit,
@@ -152,6 +154,7 @@ fun ShopListScreen(
                     ShopList(
                         searchQuery = searchQuery,
                         pagingDataFlow = pagingDataFlow,
+                        emptyImageType = emptyImageType,
                         onClickShopItem = onClickShopItem,
                         onClickSearchBar = onClickSearchBar,
                     )

@@ -13,6 +13,8 @@
     <string name="search_range_1000">1000m</string>
     <string name="search_range_2000">2000m</string>
     <string name="search_range_3000">3000m</string>
+    <string name="shop_list_empty_title">検索結果が存在しません</string>
+    <string name="shop_list_empty_sub_title">検索条件を変えてみてください</string>
     <string name="shop_list_modal_title">検索条件</string>
     <string name="shop_list_modal_search_range">検索範囲</string>
     <string name="shop_list_modal_search_button">検索</string>
