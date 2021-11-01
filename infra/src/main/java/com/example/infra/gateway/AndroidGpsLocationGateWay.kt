@@ -4,8 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
+import com.example.domain.core.error.AppError
 import com.example.domain.location.gateway.LocationGateWay
-import com.example.domain.location.model.GetLocationResult
 import com.example.domain.location.model.Location
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -20,7 +20,7 @@ class AndroidGpsLocationGateWay @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
 
-    override suspend fun lastLocation(): GetLocationResult {
+    override suspend fun lastLocation(): Location {
         val hasAccessFineLocation = ActivityCompat.checkSelfPermission(
             context,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -31,14 +31,13 @@ class AndroidGpsLocationGateWay @Inject constructor(
         ) == PackageManager.PERMISSION_GRANTED
 
         if (!(hasAccessFineLocation || hasAccessCoarseLocation)) {
-            return GetLocationResult.NoPermission
+            throw AppError.Permission.NoLocationPermissionException("位置情報のパーミッションがありません")
         }
         return suspendCancellableCoroutine { continuation ->
-            fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+            fusedLocationProviderClient.lastLocation.addOnSuccessListener { it ->
                 val location = Location(latitude = it.latitude, longitude = it.longitude)
-                val result = GetLocationResult.Success(location)
-                continuation.resume(result) {
-                    continuation.resumeWithException(it)
+                continuation.resume(location) { e ->
+                    continuation.resumeWithException(e)
                 }
             }.addOnFailureListener { e ->
                 continuation.resumeWithException(e)

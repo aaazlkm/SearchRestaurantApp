@@ -10,6 +10,6 @@ object CouponMapper {
     ) {
         0 -> Coupon.Url(data.couponUrls.sp)
         1 -> Coupon.None
-        else -> throw AppError.ApiException.ParseDataException("ktaiCouponは0,1しか取りません")
+        else -> throw AppError.Api.ParseDataException("ktaiCouponは0,1しか取りません")
     }
 }

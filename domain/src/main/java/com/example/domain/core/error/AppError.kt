@@ -6,7 +6,11 @@ sealed class AppError : RuntimeException {
     constructor(message: String?, cause: Throwable?) : super(message, cause)
     constructor(cause: Throwable?) : super(cause)
 
-    sealed class ApiException(cause: Throwable?) : AppError(cause) {
+    sealed class Permission(cause: Throwable?) : AppError(cause) {
+        class NoLocationPermissionException(message: String?) : AppError(message)
+    }
+
+    sealed class Api(cause: Throwable?) : AppError(cause) {
         class NetworkException(cause: Throwable?) : AppError(cause)
         class HttpException(cause: Throwable?, val code: Int, override val message: String) :
             AppError(cause)
@@ -28,4 +32,11 @@ enum class HotpepperErrorInfo {
     API_KEY_OR_IP_ADDRESS_AUTH_ERROR,
     ILLEGAL_PARAMETER,
     UNKNOWN,
+}
+
+fun Throwable.toAppError(): AppError {
+    return when (val error = this) {
+        is AppError -> error
+        else -> AppError.UnknownException(error)
+    }
 }

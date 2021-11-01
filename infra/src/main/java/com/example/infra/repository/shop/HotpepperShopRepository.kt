@@ -44,7 +44,7 @@ class HotpepperShopRepository @Inject constructor(
             hotpepperService.searchShop(request.path.value, request.queryParameter)
         }.let { response ->
             SearchResultsMapper.fromData(response.results).shops.singleOrNull() { it.id == shopId }
-                ?: throw AppError.ApiException.NotFoundedException("該当するShopは存在しません")
+                ?: throw AppError.Api.NotFoundedException("該当するShopは存在しません")
         }
     }
 }

@@ -6,7 +6,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.domain.location.model.GetLocationResult
+import com.example.domain.core.error.AppError
+import com.example.domain.core.result.Result
 import com.example.domain.location.usecase.LocationUseCase
 import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.Shop
@@ -72,13 +73,18 @@ class RealShopListViewModel @Inject constructor(
                 }
                 ShopListViewModel.Event.ClickSearchButton -> {
                     when (val result = locationUseCase.lastLocation()) {
-                        is GetLocationResult.Success -> {
+                        is Result.Success -> {
                             val searchQuery =
-                                _searchQueryBuilder.value.setLocation(result.location).build()
+                                _searchQueryBuilder.value.setLocation(result.value).build()
                             _searchQuery.value = searchQuery
                             _effect.send(ShopListViewModel.Effect.SearchResult.Success)
                         }
-                        GetLocationResult.NoPermission -> _effect.send(ShopListViewModel.Effect.SearchResult.FailedForNoLocationPermission)
+                        is Result.Error -> {
+                            if (result.e is AppError.Permission.NoLocationPermissionException) {
+                                _effect.send(ShopListViewModel.Effect.SearchResult.FailedForNoLocationPermission)
+                            }
+                            result.e.printStackTrace()
+                        }
                     }
                 }
             }

@@ -12,28 +12,28 @@ suspend inline fun <T : HotpepperResponse> callHotPepperAPiSafely(crossinline ap
     } catch (throwable: Throwable) {
         when (throwable) {
             is IOException ->
-                throw AppError.ApiException.NetworkException(
+                throw AppError.Api.NetworkException(
                     throwable
                 )
             is HttpException ->
-                throw AppError.ApiException.HttpException(
+                throw AppError.Api.HttpException(
                     throwable,
                     throwable.code(),
                     throwable.message()
                 )
             is SocketTimeoutException ->
-                throw AppError.ApiException.TimeoutException(
+                throw AppError.Api.TimeoutException(
                     throwable
                 )
             else ->
-                throw AppError.ApiException.UnknownException(
+                throw AppError.Api.UnknownException(
                     throwable
                 )
         }
     }
     return when (val errors = response.results.errors) {
         null -> response
-        else -> throw AppError.ApiException.HotpepperException(
+        else -> throw AppError.Api.HotpepperException(
             errors.map { HotpepperErrorInfoMapper.fromData(it) }
         )
     }

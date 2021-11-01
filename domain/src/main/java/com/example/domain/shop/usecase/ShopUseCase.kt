@@ -1,5 +1,7 @@
 package com.example.domain.shop.usecase
 
+import com.example.domain.core.result.Result
+import com.example.domain.core.result.wrapByResult
 import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.SearchResult
 import com.example.domain.shop.model.Shop
@@ -12,14 +14,16 @@ class ShopUseCase @Inject constructor(
 ) {
     suspend fun searchNearShops(
         searchQuery: SearchQuery,
-    ): SearchResult = shopRepository.searchNearShops(
-        searchQuery = searchQuery,
-    )
+    ): Result<SearchResult> = wrapByResult {
+        shopRepository.searchNearShops(
+            searchQuery = searchQuery,
+        )
+    }
 
     suspend fun searchShop(
         shopId: ShopId,
-    ): Shop {
-        return shopRepository.searchShop(
+    ): Result<Shop> = wrapByResult {
+        shopRepository.searchShop(
             shopId = shopId
         )
     }

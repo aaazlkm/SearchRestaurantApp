@@ -1,14 +1,11 @@
 package com.example.domain.core.result
 
 import com.example.domain.core.error.AppError
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onStart
+import com.example.domain.core.error.toAppError
 
-sealed class LoadResult<out T> {
-    object Loading : LoadResult<Nothing>()
-    data class Success<T>(val value: T) : LoadResult<T>()
-    data class Error(val e: AppError) : LoadResult<Nothing>() {
+sealed class Result<out T> {
+    data class Success<out T>(val value: T) : Result<T>()
+    data class Error(val e: AppError) : Result<Nothing>() {
         constructor(e: Throwable) : this(
             if (e is AppError) {
                 e
@@ -17,9 +14,6 @@ sealed class LoadResult<out T> {
             }
         )
     }
-
-    val isLoading: Boolean
-        get() = this is Loading
 
     val isError: Boolean
         get() = this is Error
@@ -43,9 +37,11 @@ sealed class LoadResult<out T> {
     }
 }
 
-fun <T> wrapByLoading(block: suspend () -> Result<T>): Flow<LoadResult<T>> = flow {
-    when (val result = block()) {
-        is Result.Success -> emit(LoadResult.Success(result.value))
-        is Result.Error -> emit(LoadResult.Error(result.e))
+suspend fun <T> wrapByResult(block: suspend () -> T): Result<T> {
+    return try {
+        val value = block()
+        Result.Success(value)
+    } catch (throwable: Throwable) {
+        Result.Error(throwable.toAppError())
     }
-}.onStart { emit(LoadResult.Loading) }
+}

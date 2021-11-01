@@ -3,7 +3,7 @@ package com.example.presentation.shop.single.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.core.result.LoadResult
-import com.example.domain.core.result.flowWithLoading
+import com.example.domain.core.result.wrapByLoading
 import com.example.domain.shop.model.Shop
 import com.example.domain.shop.model.ShopId
 import com.example.domain.shop.usecase.ShopUseCase
@@ -55,8 +55,11 @@ class RealShopSingleViewModel @Inject constructor(
     }
 
     private fun serachShop(shopId: ShopId) {
-        flowWithLoading { shopUseCase.searchShop(shopId) }
-            .onEach { _shopLoadResult.value = it }
+        wrapByLoading { shopUseCase.searchShop(shopId) }
+            .onEach {
+                _shopLoadResult.value = it
+                it.printStackTraceIfError()
+            }
             .launchIn(viewModelScope)
     }
 }
