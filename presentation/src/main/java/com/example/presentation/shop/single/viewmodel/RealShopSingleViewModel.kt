@@ -42,8 +42,8 @@ class RealShopSingleViewModel @Inject constructor(
         viewModelScope.launch {
             @Exhaustive
             when (event) {
-                is ShopSingleViewModel.Event.FetchShop -> fetchShop(event.shopId)
-                is ShopSingleViewModel.Event.RetryFetchShop -> fetchShop(event.shopId)
+                is ShopSingleViewModel.Event.SearchShop -> serachShop(event.shopId)
+                is ShopSingleViewModel.Event.RetrySearchShop -> serachShop(event.shopId)
             }
         }
     }
@@ -54,8 +54,8 @@ class RealShopSingleViewModel @Inject constructor(
         }
     }
 
-    private fun fetchShop(shopId: ShopId) {
-        flowWithLoading { shopUseCase.fetchShop(shopId) }
+    private fun serachShop(shopId: ShopId) {
+        flowWithLoading { shopUseCase.searchShop(shopId) }
             .onEach { _shopLoadResult.value = it }
             .launchIn(viewModelScope)
     }

@@ -20,8 +20,8 @@ interface ShopSingleViewModel :
     }
 
     sealed class Event {
-        data class FetchShop(val shopId: ShopId) : Event()
-        data class RetryFetchShop(val shopId: ShopId) : Event()
+        data class SearchShop(val shopId: ShopId) : Event()
+        data class RetrySearchShop(val shopId: ShopId) : Event()
     }
 
     override val state: StateFlow<State>

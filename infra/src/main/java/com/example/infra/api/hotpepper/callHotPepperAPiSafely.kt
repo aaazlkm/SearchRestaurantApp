@@ -1,7 +1,6 @@
-package com.example.infra.api.hotpepper.core
+package com.example.infra.api.hotpepper
 
 import com.example.domain.core.error.AppError
-import com.example.infra.api.hotpepper.HotpepperResponse
 import com.example.infra.api.hotpepper.mapper.HotpepperErrorInfoMapper
 import retrofit2.HttpException
 import java.io.IOException

@@ -10,16 +10,16 @@ import javax.inject.Inject
 class ShopUseCase @Inject constructor(
     private val shopRepository: ShopRepository,
 ) {
-    suspend fun fetchNearShops(
+    suspend fun searchNearShops(
         searchQuery: SearchQuery,
-    ): SearchResult = shopRepository.fetchNearShops(
+    ): SearchResult = shopRepository.searchNearShops(
         searchQuery = searchQuery,
     )
 
-    suspend fun fetchShop(
+    suspend fun searchShop(
         shopId: ShopId,
     ): Shop {
-        return shopRepository.fetchShop(
+        return shopRepository.searchShop(
             shopId = shopId
         )
     }

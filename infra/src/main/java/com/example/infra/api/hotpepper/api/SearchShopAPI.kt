@@ -5,7 +5,7 @@ import com.example.infra.api.hotpepper.HotpepperRequest
 import com.example.infra.api.hotpepper.HotpepperResponse
 import com.example.infra.api.hotpepper.model.SearchResultsData
 
-object FetchShopAPI {
+object SearchShopAPI {
     data class Request(
         val shopId: String
     ) : HotpepperRequest {
@@ -13,7 +13,7 @@ object FetchShopAPI {
             ID("id"),
         }
 
-        override val path = HotpepperAPIPath.FETCH_SHOPS
+        override val path = HotpepperAPIPath.SEARCH_SHOPS
 
         override val optionQueryParameter: Map<String, String>
             get() = mapOf(

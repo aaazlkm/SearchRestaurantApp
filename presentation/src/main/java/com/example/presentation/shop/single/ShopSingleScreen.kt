@@ -49,7 +49,7 @@ fun ShopSingleScreen(
         effectFlow.collect { effect ->
             when (effect) {
                 ShopSingleViewModel.Effect.Init -> dispatch(
-                    ShopSingleViewModel.Event.FetchShop(
+                    ShopSingleViewModel.Event.SearchShop(
                         shopId
                     )
                 )
@@ -62,7 +62,7 @@ fun ShopSingleScreen(
             Box {
                 ShopSingleScreen(
                     shopLoadResult = state.shopLoadResult,
-                    onClickRetry = { dispatch(ShopSingleViewModel.Event.RetryFetchShop(shopId)) },
+                    onClickRetry = { dispatch(ShopSingleViewModel.Event.RetrySearchShop(shopId)) },
                     onClickAddress = { openMapApp(context, it.location, it.name) },
                     onClickWebLink = { openWebApp(context, it.pc) },
                     onClickCoupon = { openWebApp(context, it.sp) },

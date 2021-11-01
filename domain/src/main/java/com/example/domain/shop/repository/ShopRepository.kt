@@ -6,11 +6,11 @@ import com.example.domain.shop.model.Shop
 import com.example.domain.shop.model.ShopId
 
 interface ShopRepository {
-    suspend fun fetchNearShops(
+    suspend fun searchNearShops(
         searchQuery: SearchQuery
     ): SearchResult
 
-    suspend fun fetchShop(
+    suspend fun searchShop(
         shopId: ShopId,
     ): Shop
 }

@@ -26,7 +26,7 @@ class ShopSource constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Shop> {
         return try {
             val pageToBeLoaded = params.key ?: 1
-            val searchResult = shopUseCase.fetchNearShops(
+            val searchResult = shopUseCase.searchNearShops(
                 searchQuery.copy(
                     start = pageToBeLoaded,
                     count = PAGE_SIZE
