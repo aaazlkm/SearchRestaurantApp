@@ -6,25 +6,27 @@ import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.SearchResult
 import com.example.domain.shop.model.Shop
 import com.example.domain.shop.model.ShopId
+import com.example.domain.shop.repository.CacheShopRepository
 import com.example.domain.shop.repository.ShopRepository
 import javax.inject.Inject
 
 class ShopUseCase @Inject constructor(
     private val shopRepository: ShopRepository,
+    private val cacheShopRepository: CacheShopRepository,
 ) {
     suspend fun searchNearShops(
         searchQuery: SearchQuery,
     ): Result<SearchResult> = wrapByResult {
-        shopRepository.searchNearShops(
+        val searchResult = shopRepository.searchNearShops(
             searchQuery = searchQuery,
         )
+        cacheShopRepository.saveShopsInCache(searchResult.shops)
+        return@wrapByResult searchResult
     }
 
     suspend fun searchShop(
         shopId: ShopId,
     ): Result<Shop> = wrapByResult {
-        shopRepository.searchShop(
-            shopId = shopId
-        )
+        cacheShopRepository.fetchShop(shopId) ?: shopRepository.searchShop(shopId = shopId)
     }
 }

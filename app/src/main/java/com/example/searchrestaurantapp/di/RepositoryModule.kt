@@ -2,10 +2,12 @@ package com.example.searchrestaurantapp.di
 
 import android.content.Context
 import com.example.domain.location.gateway.LocationGateWay
+import com.example.domain.shop.repository.CacheShopRepository
 import com.example.domain.shop.repository.ShopRepository
 import com.example.infra.api.hotpepper.HotpepperService
 import com.example.infra.gateway.AndroidGpsLocationGateWay
 import com.example.infra.repository.shop.HotpepperShopRepository
+import com.example.infra.repository.shop.InMemoryCacheShopRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +20,13 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Singleton
     @Provides
-    fun provideSearchRepository(hotpepperService: HotpepperService): ShopRepository =
+    fun provideShopRepository(hotpepperService: HotpepperService): ShopRepository =
         HotpepperShopRepository(hotpepperService)
+
+    @Singleton
+    @Provides
+    fun provideCacheShopRepository(): CacheShopRepository =
+        InMemoryCacheShopRepository()
 
     @Singleton
     @Provides
