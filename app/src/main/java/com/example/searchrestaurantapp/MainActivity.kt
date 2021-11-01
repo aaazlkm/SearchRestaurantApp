@@ -5,19 +5,18 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.Modifier
-import com.example.domain.shop.usecase.ShopUseCase
 import com.example.presentation.AppContent
 import com.example.presentation.ProvideViewModels
 import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var shopUseCase: ShopUseCase
-
+    @ExperimentalPermissionsApi
+    @ExperimentalCoroutinesApi
     @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,6 +6,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.domain.location.model.GetLocationResult
+import com.example.domain.location.usecase.LocationUseCase
 import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.Shop
 import com.example.domain.shop.usecase.ShopUseCase
@@ -28,6 +30,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RealShopListViewModel @Inject constructor(
     private val shopUseCase: ShopUseCase,
+    private val locationUseCase: LocationUseCase,
 ) : ViewModel(), ShopListViewModel {
 
     private val _effect = Channel<ShopListViewModel.Effect>(Channel.UNLIMITED)
@@ -68,10 +71,15 @@ class RealShopListViewModel @Inject constructor(
                         _searchQueryBuilder.value.setSearchRange(event.searchRange)
                 }
                 ShopListViewModel.Event.ClickSearchButton -> {
-                    val searchQuery = _searchQueryBuilder.value.build()
-                    // TODO 現在地取得
-                    // 取得できなければ、effectで伝える
-                    _searchQuery.value = searchQuery
+                    when (val result = locationUseCase.lastLocation()) {
+                        is GetLocationResult.Success -> {
+                            val searchQuery =
+                                _searchQueryBuilder.value.setLocation(result.location).build()
+                            _searchQuery.value = searchQuery
+                            _effect.send(ShopListViewModel.Effect.SearchResult.Success)
+                        }
+                        GetLocationResult.NoPermission -> _effect.send(ShopListViewModel.Effect.SearchResult.FailedForNoLocationPermission)
+                    }
                 }
             }
         }

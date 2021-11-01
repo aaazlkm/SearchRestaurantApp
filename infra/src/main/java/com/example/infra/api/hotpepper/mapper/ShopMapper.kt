@@ -1,6 +1,6 @@
 package com.example.infra.api.hotpepper.mapper
 
-import com.example.domain.shop.model.Location
+import com.example.domain.location.model.Location
 import com.example.domain.shop.model.Shop
 import com.example.domain.shop.model.ShopId
 import com.example.infra.api.hotpepper.model.ShopData

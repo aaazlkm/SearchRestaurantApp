@@ -21,8 +21,8 @@ class HotpepperShopRepository @Inject constructor(
         searchQuery: SearchQuery
     ): SearchResult {
         val request = FetchNearShopsAPI.Request(
-            lat = searchQuery.location.lat,
-            lng = searchQuery.location.lng,
+            lat = searchQuery.location.latitude,
+            lng = searchQuery.location.longitude,
             range = SearchRangeMapper.toData(searchQuery.searchRange),
             start = searchQuery.start,
             count = searchQuery.count

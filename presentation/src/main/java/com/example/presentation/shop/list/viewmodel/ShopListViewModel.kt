@@ -20,7 +20,12 @@ interface ShopListViewModel :
         val shopPagindDataFlow: Flow<PagingData<Shop>> = flow { PagingData.empty<Shop>() },
     )
 
-    sealed class Effect
+    sealed class Effect {
+        sealed class SearchResult : Effect() {
+            object FailedForNoLocationPermission : Effect()
+            object Success : Effect()
+        }
+    }
 
     sealed class Event {
         data class ChangeSearchRange(val searchRange: SearchRange) : Event()

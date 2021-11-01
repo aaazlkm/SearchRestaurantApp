@@ -1,11 +1,11 @@
 package com.example.domain.core.fake
 
+import com.example.domain.location.model.Location
 import com.example.domain.shop.model.Budget
 import com.example.domain.shop.model.BudgetCode
 import com.example.domain.shop.model.Coupon
 import com.example.domain.shop.model.Genre
 import com.example.domain.shop.model.GenreCode
-import com.example.domain.shop.model.Location
 import com.example.domain.shop.model.Mobile
 import com.example.domain.shop.model.Photo
 import com.example.domain.shop.model.SearchResult
@@ -25,8 +25,8 @@ fun fakeSearchResult(): SearchResult = SearchResult(
         address = "東京都新宿区西新宿１-14-6　西勢ビル3F",
         stationName = "新宿",
         location = Location(
-            lat = 35.6885806402,
-            lng = 139.6970204296,
+            latitude = 35.6885806402,
+            longitude = 139.6970204296,
         ),
         genre = Genre(
             code = GenreCode("G001"),

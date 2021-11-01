@@ -1,6 +1,6 @@
 package com.example.presentation.shop.list.model
 
-import com.example.domain.shop.model.Location
+import com.example.domain.location.model.Location
 import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.SearchRange
 

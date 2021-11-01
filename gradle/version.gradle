@@ -51,7 +51,12 @@ ext {
                     ],
             ],
             "accompanist": [
-                    "insets": "com.google.accompanist:accompanist-insets:0.21.0-beta",
+                    "insets"     : "com.google.accompanist:accompanist-insets:0.21.0-beta",
+                    "permissions": "com.google.accompanist:accompanist-permissions:0.21.0-beta",
+            ],
+            "android"     : [
+                    "material": "com.google.android.material:material:1.4.0",
+                    "location": "com.google.android.gms:play-services-location:18.0.0"
             ],
             "dagger"     : [
                     "android"   : "com.google.dagger:hilt-android:2.37",
@@ -66,7 +71,6 @@ ext {
             ],
             "gson"       : "com.google.code.gson:gson:2.8.8",
             "coil"       : "io.coil-kt:coil-compose:1.4.0",
-            "material"   : "com.google.android.material:material:1.4.0",
             "timber"     : "com.jakewharton.timber:timber:5.0.1",
             "ktlint"     : "com.pinterest:ktlint:0.42.1",
     ]

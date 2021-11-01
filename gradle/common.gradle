@@ -59,8 +59,6 @@ dependencies {
     androidTestImplementation dependency.test.ext
     androidTestImplementation dependency.test.espresso
 
-    implementation dependency.accompanist.insets
-
     implementation dependency.kotlinx.serialization
     implementation dependency.kotlinx.coroutines
 
@@ -81,7 +79,13 @@ dependencies {
     implementation dependency.androidx.compose.navigation
     implementation dependency.androidx.compose.paging
 
-    implementation dependency.material
+    implementation dependency.accompanist.insets
+    implementation dependency.accompanist.permissions
+
+
+    implementation dependency.android.material
+    implementation dependency.android.location
+
     implementation dependency.timber
 
     implementation dependency.dagger.android

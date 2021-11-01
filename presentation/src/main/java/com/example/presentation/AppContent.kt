@@ -22,7 +22,9 @@ import com.example.domain.shop.model.ShopId
 import com.example.presentation.shop.list.ShopListScreen
 import com.example.presentation.shop.single.ShopSingleScreen
 import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
+@ExperimentalPermissionsApi
 @ExperimentalMaterialApi
 @Composable
 fun AppContent(

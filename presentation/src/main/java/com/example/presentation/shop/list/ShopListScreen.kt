@@ -1,5 +1,6 @@
 package com.example.presentation.shop.list
 
+import android.Manifest
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,9 +17,14 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,23 +38,28 @@ import com.example.domain.shop.model.Shop
 import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.R
 import com.example.presentation.core.use
+import com.example.presentation.dialog.SystemSettingDialog
 import com.example.presentation.shop.list.model.SearchQueryBuilder
 import com.example.presentation.shop.list.view.BottomSheetContent
 import com.example.presentation.shop.list.view.ShopList
 import com.example.presentation.shop.list.viewmodel.ShopListViewModel
 import com.example.presentation.shop.list.viewmodel.shopListViewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
+@ExperimentalPermissionsApi
 @ExperimentalMaterialApi
 @Composable
 fun ShopListScreen(
     onClickShopItem: (Shop) -> Unit,
 ) {
-    val sheetState = rememberModalBottomSheetState(
-        ModalBottomSheetValue.Hidden
-    )
+    val context = LocalContext.current
+    val scaffoldState = rememberScaffoldState()
+    val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     val (
         state,
@@ -56,11 +67,39 @@ fun ShopListScreen(
         dispatch,
     ) = use(shopListViewModel())
 
+    // dialogの状態までViewModelで管理したくないので、ここで保持
+    val systemSettingDialogVisible = remember { mutableStateOf(false) }
+    val locationPersmission = rememberMultiplePermissionsState(
+        listOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+    )
+
+    LaunchedEffect(key1 = effectFlow) {
+        effectFlow.collect { effect ->
+            when (effect) {
+                ShopListViewModel.Effect.SearchResult.Success -> {
+                    sheetState.hide()
+                }
+                ShopListViewModel.Effect.SearchResult.FailedForNoLocationPermission -> {
+                    if (locationPersmission.shouldShowRationale) {
+                        systemSettingDialogVisible.value = true
+                    } else {
+                        locationPersmission.launchMultiplePermissionRequest()
+                    }
+                }
+            }
+        }
+    }
+
     ShopListScreen(
+        scaffoldState = scaffoldState,
         sheetState = sheetState,
         searchQueryBuilder = state.searchQueryBuilder,
         searchQuery = state.searchQuery,
         pagingDataFlow = state.shopPagindDataFlow,
+        systemSettingDialogVisible = systemSettingDialogVisible.value,
         onClickShopItem = onClickShopItem,
         onClickSearchBar = {
             coroutineScope.launch {
@@ -73,16 +112,20 @@ fun ShopListScreen(
             dispatch(ShopListViewModel.Event.ChangeSearchRange(it))
         },
         onClickSearchButton = {
-            coroutineScope.launch { sheetState.hide() }
             dispatch(ShopListViewModel.Event.ClickSearchButton)
         },
+        onDismissSystemSettingDialogRequest = {
+            systemSettingDialogVisible.value = false
+        }
     )
 }
 
 @ExperimentalMaterialApi
 @Composable
 fun ShopListScreen(
+    scaffoldState: ScaffoldState,
     sheetState: ModalBottomSheetState,
+    systemSettingDialogVisible: Boolean,
     searchQueryBuilder: SearchQueryBuilder,
     searchQuery: SearchQuery,
     pagingDataFlow: Flow<PagingData<Shop>> = flow { PagingData.empty<Shop>() },
@@ -90,6 +133,7 @@ fun ShopListScreen(
     onClickSearchBar: () -> Unit,
     onClickSearchRange: (SearchRange) -> Unit,
     onClickSearchButton: () -> Unit,
+    onDismissSystemSettingDialogRequest: () -> Unit,
 ) {
     ModalBottomSheetLayout(
         sheetState = sheetState,
@@ -102,6 +146,7 @@ fun ShopListScreen(
         },
     ) {
         Scaffold(
+            scaffoldState = scaffoldState,
             content = {
                 Box {
                     ShopList(
@@ -112,6 +157,11 @@ fun ShopListScreen(
                     )
                 }
             }
+        )
+    }
+    if (systemSettingDialogVisible) {
+        SystemSettingDialog(
+            onDismissRequest = onDismissSystemSettingDialogRequest,
         )
     }
 }
@@ -184,6 +234,7 @@ fun ErrorItem(
     }
 }
 
+@ExperimentalPermissionsApi
 @ExperimentalMaterialApi
 @Preview(showBackground = true)
 @Composable

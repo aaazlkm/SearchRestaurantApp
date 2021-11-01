@@ -1,5 +1,7 @@
 package com.example.domain.shop.model
 
+import com.example.domain.location.model.Location
+
 data class Shop(
     val id: ShopId,
     val name: String,

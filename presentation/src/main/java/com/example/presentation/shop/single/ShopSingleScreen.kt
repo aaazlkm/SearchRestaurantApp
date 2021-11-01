@@ -1,7 +1,5 @@
 package com.example.presentation.shop.single
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import com.example.domain.core.fake.fakeSearchResult
 import com.example.domain.core.result.LoadResult
 import com.example.domain.shop.model.Coupon
@@ -28,6 +25,9 @@ import com.example.domain.shop.model.Urls
 import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.R
 import com.example.presentation.core.getReadableMessage
+import com.example.presentation.core.intent.openMapApp
+import com.example.presentation.core.intent.openShareText
+import com.example.presentation.core.intent.openWebApp
 import com.example.presentation.core.use
 import com.example.presentation.shop.single.view.ShopView
 import com.example.presentation.shop.single.viewmodel.ShopSingleViewModel
@@ -63,36 +63,10 @@ fun ShopSingleScreen(
                 ShopSingleScreen(
                     shopLoadResult = state.shopLoadResult,
                     onClickRetry = { dispatch(ShopSingleViewModel.Event.RetryFetchShop(shopId)) },
-                    onClickAddress = {
-                        val intent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("geo:${it.location.lat},${it.location.lng}?q=${it.name}")
-                        )
-                        startActivity(context, intent, null)
-                    },
-                    onClickWebLink = {
-                        val intent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(it.pc)
-                        )
-                        startActivity(context, intent, null)
-                    },
-                    onClickCoupon = {
-                        val intent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(it.sp)
-                        )
-                        startActivity(context, intent, null)
-                    },
-                    onClickShare = {
-                        val sendIntent: Intent = Intent().apply {
-                            action = Intent.ACTION_SEND
-                            putExtra(Intent.EXTRA_TEXT, it.pc)
-                            type = "text/plain"
-                        }
-                        val shareIntent = Intent.createChooser(sendIntent, null)
-                        startActivity(context, shareIntent, null)
-                    }
+                    onClickAddress = { openMapApp(context, it.location, it.name) },
+                    onClickWebLink = { openWebApp(context, it.pc) },
+                    onClickCoupon = { openWebApp(context, it.sp) },
+                    onClickShare = { openShareText(context, it.pc) }
                 )
             }
         }

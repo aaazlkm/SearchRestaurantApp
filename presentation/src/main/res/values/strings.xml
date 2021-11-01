@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">searchRestaurantApp</string>
+    <string name="dialog_system_setting_title">設定アプリから位置情報の権限を許可する必要があります</string>
+    <string name="dialog_system_setting_ok">設定アプリへ</string>
     <string name="error_retry">再試行</string>
     <string name="error_network">ネットワークに繋がっていません</string>
     <string name="error_server">現在利用できません。時間を開けて再施行してください</string>
