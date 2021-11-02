@@ -1,10 +1,5 @@
 # 簡易仕様書サンプル
 
-
-| 検索結果画面 | お店詳細画面 |
-| :-------: | :-------: |
-| ![検索結果画面](https://user-images.githubusercontent.com/40765910/139814329-c694b4cf-b15c-41de-9604-952bb11b4d2f.gif)| ![お店詳細画面](https://user-images.githubusercontent.com/40765910/139814192-d5ec1709-7a6e-48c6-a99d-56e85392aeb0.gif) |
-
 ## ビルド手順
 
 local.properties に以下のように API キーを入れてください。  
@@ -13,6 +8,14 @@ local.properties に以下のように API キーを入れてください。
 ```local.properties
 hotpepper_api_key=YOUR_HOTPEPPER_API_KEY
 ```
+
+
+## アプリ動作
+
+| 検索結果画面 | お店詳細画面 |
+| :-------: | :-------: |
+| ![検索結果画面](https://user-images.githubusercontent.com/40765910/139814329-c694b4cf-b15c-41de-9604-952bb11b4d2f.gif)| ![お店詳細画面](https://user-images.githubusercontent.com/40765910/139814192-d5ec1709-7a6e-48c6-a99d-56e85392aeb0.gif) |
+
 
 ## 作者
 
