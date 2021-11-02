@@ -28,6 +28,7 @@ val horizontalPadding = 28.dp
 @Composable
 fun ShopView(
     shop: Shop,
+    onClickBackButton: () -> Unit,
     onClickAddress: (Shop) -> Unit,
     onClickWebLink: (Urls) -> Unit,
     onClickCoupon: (Coupon.Url) -> Unit,
@@ -38,6 +39,9 @@ fun ShopView(
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
+        ShopAppBar(
+            onClickBackButton = onClickBackButton,
+        )
         Image(
             painter = rememberImagePainter(
                 data = shop.photo.mobile.l,
@@ -81,6 +85,7 @@ fun PreviewShopView() {
     AppThemeWithBackground {
         ShopView(
             shop = fakeSearchResult().shops.first(),
+            onClickBackButton = {},
             onClickAddress = {},
             onClickWebLink = {},
             onClickCoupon = {},

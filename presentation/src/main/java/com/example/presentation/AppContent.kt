@@ -56,7 +56,10 @@ fun AppContent(
                         backStackEntry.arguments?.getString(Routes.ShopSingle.Argument.ShopId.key)
                             ?.let { ShopId(it) }
                             ?: throw IllegalArgumentException("引数が渡されていません")
-                    ShopSingleScreen(shopId)
+                    ShopSingleScreen(
+                        shopId = shopId,
+                        onClickBackButton = { appNavController.popShopSingle() },
+                    )
                 }
             }
         }

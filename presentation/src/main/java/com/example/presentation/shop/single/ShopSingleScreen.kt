@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.collect
 @Composable
 fun ShopSingleScreen(
     shopId: ShopId,
+    onClickBackButton: () -> Unit,
 ) {
     val context = LocalContext.current
     val (
@@ -53,6 +54,7 @@ fun ShopSingleScreen(
             Box {
                 ShopSingleScreen(
                     shopLoadResult = state.shopLoadResult,
+                    onClickBackButton = onClickBackButton,
                     onClickRetry = { dispatch(ShopSingleViewModel.Event.RetrySearchShop(shopId)) },
                     onClickAddress = { openMapApp(context, it.location, it.name) },
                     onClickWebLink = { openWebApp(context, it.pc) },
@@ -67,6 +69,7 @@ fun ShopSingleScreen(
 @Composable
 fun ShopSingleScreen(
     shopLoadResult: LoadResult<Shop>,
+    onClickBackButton: () -> Unit,
     onClickRetry: () -> Unit,
     onClickAddress: (Shop) -> Unit,
     onClickWebLink: (Urls) -> Unit,
@@ -74,9 +77,12 @@ fun ShopSingleScreen(
     onClickShare: (Urls) -> Unit,
 ) {
     when (shopLoadResult) {
-        LoadResult.Loading -> ShopLoadingView()
+        LoadResult.Loading -> ShopLoadingView(
+            onClickBackButton = onClickBackButton,
+        )
         is LoadResult.Success -> ShopView(
             shop = shopLoadResult.value,
+            onClickBackButton = onClickBackButton,
             onClickAddress = onClickAddress,
             onClickWebLink = onClickWebLink,
             onClickCoupon = onClickCoupon,
@@ -84,6 +90,7 @@ fun ShopSingleScreen(
         )
         is LoadResult.Error -> ShopErrorView(
             message = shopLoadResult.e.getReadableMessage(LocalContext.current),
+            onClickBackButton = onClickBackButton,
             onClickRetry = onClickRetry
         )
     }
@@ -95,6 +102,7 @@ fun PreviewLoadingShopSingleScreen() {
     AppThemeWithBackground {
         ShopSingleScreen(
             shopLoadResult = LoadResult.Loading,
+            onClickBackButton = {},
             onClickRetry = {},
             onClickAddress = {},
             onClickWebLink = {},
@@ -110,6 +118,7 @@ fun PreviewSuccessShopSingleScreen() {
     AppThemeWithBackground {
         ShopSingleScreen(
             shopLoadResult = LoadResult.Success(fakeSearchResult().shops.first()),
+            onClickBackButton = {},
             onClickRetry = {},
             onClickAddress = {},
             onClickWebLink = {},
@@ -125,6 +134,7 @@ fun PreviewErrorShopSingleScreen() {
     AppThemeWithBackground {
         ShopSingleScreen(
             shopLoadResult = LoadResult.Error(Exception()),
+            onClickBackButton = {},
             onClickRetry = {},
             onClickAddress = {},
             onClickWebLink = {},

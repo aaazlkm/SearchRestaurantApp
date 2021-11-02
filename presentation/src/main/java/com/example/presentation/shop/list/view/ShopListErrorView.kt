@@ -2,7 +2,7 @@ package com.example.presentation.shop.list.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -25,8 +25,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.presentation.R
+import com.example.presentation.core.theme.AppThemeWithBackground
 
 @Composable
 fun ShopListErrorView(
@@ -69,6 +72,7 @@ fun ShopListErrorView(
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground.copy(alpha = ContentAlpha.high),
                 fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -76,6 +80,7 @@ fun ShopListErrorView(
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground.copy(alpha = ContentAlpha.disabled),
                 fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(16.dp))
             BoxWithConstraints {
@@ -86,6 +91,7 @@ fun ShopListErrorView(
                         text = context.getString(R.string.error_retry),
                         style = MaterialTheme.typography.body2,
                         fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier.padding(
                             horizontal = 12.dp
                         ),
@@ -104,10 +110,41 @@ fun ShopListErrorItem(
 ) {
     val context = LocalContext.current
     Column(
-        modifier = modifier.clickable { onClickRetry.invoke() },
+        modifier = modifier
+            .fillMaxWidth()
+            .height(120.dp),
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = message)
-        Text(text = context.getString(R.string.error_retry))
+        Text(
+            text = message,
+            style = MaterialTheme.typography.body2,
+            color = MaterialTheme.colors.onBackground.copy(alpha = ContentAlpha.high),
+            textAlign = TextAlign.Center,
+        )
+        Button(
+            onClick = onClickRetry,
+        ) {
+            Text(
+                text = context.getString(R.string.error_retry),
+                style = MaterialTheme.typography.caption,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(
+                    horizontal = 12.dp
+                ),
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewShopListErrorItem() {
+    AppThemeWithBackground {
+        ShopListErrorItem(
+            message = "ネットワークにつながっていません",
+            onClickRetry = {}
+        )
     }
 }

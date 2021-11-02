@@ -26,4 +26,8 @@ class AppNavController constructor(
     fun navigateToShopSingle(shopId: ShopId) {
         navHostController.navigate(Routes.ShopSingle.pathWithArgument(shopId))
     }
+
+    fun popShopSingle() {
+        navHostController.popBackStack()
+    }
 }

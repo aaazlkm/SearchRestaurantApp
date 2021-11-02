@@ -33,6 +33,7 @@ import com.example.presentation.core.theme.AppThemeWithBackground
 @Composable
 fun ShopErrorView(
     message: String,
+    onClickBackButton: () -> Unit,
     onClickRetry: () -> Unit,
 ) {
     Box(
@@ -45,7 +46,10 @@ fun ShopErrorView(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Spacer(modifier = Modifier.height(36.dp))
+            ShopAppBar(onClickBackButton = onClickBackButton)
+            BoxWithConstraints {
+                Spacer(modifier = Modifier.height(maxHeight * 0.1f))
+            }
             BoxWithConstraints {
                 Box(
                     modifier = Modifier
@@ -103,6 +107,7 @@ fun PreviewShopErrorView() {
     AppThemeWithBackground {
         ShopErrorView(
             message = "エラーです",
+            onClickBackButton = {},
             onClickRetry = {}
         )
     }

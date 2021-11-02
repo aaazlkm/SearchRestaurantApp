@@ -24,8 +24,8 @@ sealed class SearchState {
                 coroutineScope: CoroutineScope
             ) = Searching(
                 searchQuery = searchQuery,
-                shopPagingDataFlow = Pager(PagingConfig(pageSize = ShopSource.PAGE_SIZE)) {
-                    ShopSource(shopUseCase, searchQuery)
+                shopPagingDataFlow = Pager(PagingConfig(pageSize = ShopPagingSource.PAGE_SIZE)) {
+                    ShopPagingSource(shopUseCase, searchQuery)
                 }.flow.cachedIn(coroutineScope)
             )
         }

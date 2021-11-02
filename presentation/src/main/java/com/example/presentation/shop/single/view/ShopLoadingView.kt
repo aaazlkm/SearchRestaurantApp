@@ -17,6 +17,7 @@ import com.example.presentation.core.theme.AppThemeWithBackground
 @Composable
 fun ShopLoadingView(
     modifier: Modifier = Modifier,
+    onClickBackButton: () -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
@@ -27,6 +28,9 @@ fun ShopLoadingView(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            ShopAppBar(
+                onClickBackButton = onClickBackButton,
+            )
             BoxWithConstraints {
                 Spacer(modifier = Modifier.height(maxHeight * 0.2f))
             }
@@ -39,6 +43,8 @@ fun ShopLoadingView(
 @Composable
 fun PreviewShopLoadingView() {
     AppThemeWithBackground {
-        ShopLoadingView()
+        ShopLoadingView(
+            onClickBackButton = {}
+        )
     }
 }

@@ -51,7 +51,9 @@ fun ShopListPreparingView(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Spacer(modifier = Modifier.height(36.dp))
+                BoxWithConstraints {
+                    Spacer(modifier = Modifier.height(maxHeight * 0.1f))
+                }
                 BoxWithConstraints {
                     Box(
                         modifier = Modifier

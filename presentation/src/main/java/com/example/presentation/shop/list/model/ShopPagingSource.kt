@@ -7,7 +7,7 @@ import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.Shop
 import com.example.domain.shop.usecase.ShopUseCase
 
-class ShopSource constructor(
+class ShopPagingSource constructor(
     private val shopUseCase: ShopUseCase,
     private val searchQuery: SearchQuery,
 ) : PagingSource<Int, Shop>() {
@@ -32,11 +32,13 @@ class ShopSource constructor(
             )
         )
         return when (result) {
-            is Result.Success -> LoadResult.Page(
-                data = result.value.shops,
-                prevKey = null,
-                nextKey = if (result.value.hasNextPage) pageToBeLoaded + 1 else null
-            )
+            is Result.Success -> {
+                LoadResult.Page(
+                    data = result.value.shops,
+                    prevKey = null,
+                    nextKey = if (result.value.hasNextPage) pageToBeLoaded + 1 else null
+                )
+            }
             is Result.Error -> {
                 result.e.printStackTrace()
                 LoadResult.Error(result.e)
