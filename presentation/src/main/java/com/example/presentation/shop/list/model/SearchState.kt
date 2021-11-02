@@ -7,7 +7,6 @@ import androidx.paging.cachedIn
 import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.Shop
 import com.example.domain.shop.usecase.ShopUseCase
-import com.example.presentation.shop.list.ShopSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

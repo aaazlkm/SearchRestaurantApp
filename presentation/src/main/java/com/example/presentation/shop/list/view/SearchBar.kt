@@ -24,13 +24,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.domain.location.model.Location
 import com.example.domain.shop.model.SearchQuery
-import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.R
 import com.example.presentation.core.string.getString
+import com.example.presentation.core.theme.AppThemeWithBackground
 import com.example.presentation.shop.list.model.SearchState
 
 @Composable
@@ -44,7 +45,7 @@ fun SearchBar(
             .padding(horizontal = 16.dp, vertical = 12.dp)
             .shadow(
                 elevation = 4.dp,
-                shape = RoundedCornerShape(16.dp),
+                shape = RoundedCornerShape(8.dp),
                 clip = true
             )
             .background(color = MaterialTheme.colors.surface)
@@ -89,20 +90,21 @@ fun SearchQueryItem(
     label: String,
 ) {
     Surface(
-        color = MaterialTheme.colors.surface,
+        color = MaterialTheme.colors.primary,
         border = BorderStroke(
-            0.5.dp,
-            MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
+            1.dp,
+            MaterialTheme.colors.primary.copy(alpha = ContentAlpha.disabled)
         ),
         shape = RoundedCornerShape(8.dp),
-        elevation = 0.dp
+        elevation = 2.dp
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.body2,
-            color = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
+            style = MaterialTheme.typography.caption,
+            color = MaterialTheme.colors.onPrimary.copy(alpha = ContentAlpha.medium),
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(
-                horizontal = 8.dp, vertical = 6.dp
+                horizontal = 12.dp, vertical = 6.dp
             )
         )
     }

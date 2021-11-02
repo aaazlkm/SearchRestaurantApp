@@ -25,12 +25,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.R
+import com.example.presentation.core.theme.AppThemeWithBackground
 import com.example.presentation.shop.list.model.SearchState
 
 @Composable
-fun SearchPreparingView(
+fun ShopListPreparingView(
     searchState: SearchState.Preparing,
     onClickSearchBar: () -> Unit,
 ) {
@@ -55,7 +55,7 @@ fun SearchPreparingView(
                 BoxWithConstraints {
                     Box(
                         modifier = Modifier
-                            .size(this.maxWidth * 0.6f)
+                            .size(maxWidth * 0.6f)
                             .clip(CircleShape)
                             .background(MaterialTheme.colors.onBackground.copy(alpha = 0.04f))
                             .align(Alignment.Center),
@@ -94,7 +94,7 @@ fun SearchPreparingView(
 @Composable
 fun PreviewSearchPreparingView() {
     AppThemeWithBackground {
-        SearchPreparingView(
+        ShopListPreparingView(
             searchState = SearchState.Preparing,
             onClickSearchBar = {}
         )

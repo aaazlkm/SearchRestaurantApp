@@ -15,8 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.domain.core.fake.fakeSearchResult
 import com.example.domain.shop.model.Shop
-import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.R
+import com.example.presentation.core.theme.AppThemeWithBackground
 
 @Composable
 fun ShopInfoView(shop: Shop) {
@@ -32,6 +32,12 @@ fun ShopInfoView(shop: Shop) {
         Spacer(modifier = Modifier.height(16.dp))
         if (shop.name.isNotBlank()) {
             ShopInfoItem(label = context.getString(R.string.shop_single_info_name), shop.name)
+        }
+        if (shop.mobileAccess.isNotBlank()) {
+            ShopInfoItem(
+                label = context.getString(R.string.shop_single_info_access),
+                content = shop.mobileAccess
+            )
         }
         if (shop.open.isNotBlank()) {
             ShopInfoItem(
@@ -51,28 +57,22 @@ fun ShopInfoView(shop: Shop) {
                 content = "${shop.budget.name}${if (shop.budgetMemo.isNotBlank()) "\n*${shop.budgetMemo}" else ""}"
             )
         }
+        if (shop.capacity.isNotBlank()) {
+            ShopInfoItem(
+                label = context.getString(R.string.shop_single_info_capacity),
+                content = shop.capacity
+            )
+        }
         if (shop.stationName.isNotBlank()) {
             ShopInfoItem(
                 label = context.getString(R.string.shop_single_info_stationName),
                 content = shop.stationName
             )
         }
-        if (shop.mobileAccess.isNotBlank()) {
-            ShopInfoItem(
-                label = context.getString(R.string.shop_single_info_access),
-                content = shop.mobileAccess
-            )
-        }
         if (shop.address.isNotBlank()) {
             ShopInfoItem(
                 label = context.getString(R.string.shop_single_info_address),
                 content = shop.address
-            )
-        }
-        if (shop.capacity.isNotBlank()) {
-            ShopInfoItem(
-                label = context.getString(R.string.shop_single_info_capacity),
-                content = shop.capacity
             )
         }
     }

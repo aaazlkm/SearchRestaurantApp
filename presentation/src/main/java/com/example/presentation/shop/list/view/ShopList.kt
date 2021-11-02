@@ -13,12 +13,8 @@ import com.example.domain.core.fake.fakeSearchResult
 import com.example.domain.location.model.Location
 import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.Shop
-import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.core.getReadableMessage
-import com.example.presentation.shop.list.ErrorItem
-import com.example.presentation.shop.list.ErrorView
-import com.example.presentation.shop.list.LoadingItem
-import com.example.presentation.shop.list.LoadingView
+import com.example.presentation.core.theme.AppThemeWithBackground
 import com.example.presentation.shop.list.model.EmptyImageType
 import com.example.presentation.shop.list.model.SearchState
 import kotlinx.coroutines.flow.Flow
@@ -48,7 +44,7 @@ fun ShopList(
                 }
                 is LoadState.Error -> {
                     item {
-                        ErrorView(
+                        ShopListErrorView(
                             message = refresh.error.getReadableMessage(LocalContext.current),
                             modifier = Modifier.fillParentMaxSize(),
                             onClickRetry = { retry() }
@@ -62,7 +58,7 @@ fun ShopList(
                 }
                 is LoadState.Error -> {
                     item {
-                        ErrorItem(
+                        ShopListErrorItem(
                             message = append.error.getReadableMessage(LocalContext.current),
                             onClickRetry = { retry() }
                         )

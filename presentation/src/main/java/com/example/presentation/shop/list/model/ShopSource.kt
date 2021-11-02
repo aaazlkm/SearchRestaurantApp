@@ -1,4 +1,4 @@
-package com.example.presentation.shop.list
+package com.example.presentation.shop.list.model
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

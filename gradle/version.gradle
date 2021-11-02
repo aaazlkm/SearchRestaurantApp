@@ -37,13 +37,13 @@ ext {
                             "runtime"  : "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
                     ],
                     "compose"         : [
-                            "ui"        : "androidx.compose.ui:ui:1.0.1",
-                            "tooling"   : "androidx.compose.ui:ui-tooling:1.0.1",
-                            "foundation": "androidx.compose.foundation:foundation:1.0.1",
+                            "ui"        : "androidx.compose.ui:ui:1.1.0-alpha06",
+                            "tooling"   : "androidx.compose.ui:ui-tooling:1.1.0-alpha06",
+                            "foundation": "androidx.compose.foundation:foundation:1.1.0-alpha06",
                             "material"  : [
-                                    "material": "androidx.compose.material:material:1.0.1",
-                                    "core"    : "androidx.compose.material:material-icons-core:1.0.1",
-                                    "extended": "androidx.compose.material:material-icons-extended:1.0.1",
+                                    "material": "androidx.compose.material:material:1.1.0-alpha06",
+                                    "core"    : "androidx.compose.material:material-icons-core:1.1.0-alpha06",
+                                    "extended": "androidx.compose.material:material-icons-extended:1.1.0-alpha06",
                             ],
                             "activity"  : "androidx.activity:activity-compose:1.3.1",
                             "navigation": "androidx.navigation:navigation-compose:2.4.0-beta01",
@@ -51,10 +51,11 @@ ext {
                     ],
             ],
             "accompanist": [
-                    "insets"     : "com.google.accompanist:accompanist-insets:0.21.0-beta",
-                    "permissions": "com.google.accompanist:accompanist-permissions:0.21.0-beta",
+                    "insets"            : "com.google.accompanist:accompanist-insets:0.21.0-beta",
+                    "permissions"       : "com.google.accompanist:accompanist-permissions:0.21.0-beta",
+                    "systemuicontroller": "com.google.accompanist:accompanist-systemuicontroller:0.21.0-beta",
             ],
-            "android"     : [
+            "android"    : [
                     "material": "com.google.android.material:material:1.4.0",
                     "location": "com.google.android.gms:play-services-location:18.0.0"
             ],

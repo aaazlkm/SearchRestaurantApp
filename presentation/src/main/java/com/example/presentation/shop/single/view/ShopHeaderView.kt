@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.domain.core.fake.fakeSearchResult
 import com.example.domain.shop.model.Shop
-import com.example.presentation.AppThemeWithBackground
+import com.example.presentation.core.theme.AppThemeWithBackground
 
 @Composable
 fun ShopHeaderView(shop: Shop) {
@@ -32,14 +32,16 @@ fun ShopHeaderView(shop: Shop) {
             modifier = Modifier
                 .padding(horizontal = horizontalPadding)
         )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = shop.catch,
-            style = MaterialTheme.typography.body2,
-            color = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
-            modifier = Modifier
-                .padding(horizontal = horizontalPadding)
-        )
+        if (shop.catch.isNotBlank()) {
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = shop.catch,
+                style = MaterialTheme.typography.body2,
+                color = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
+                modifier = Modifier
+                    .padding(horizontal = horizontalPadding)
+            )
+        }
     }
 }
 

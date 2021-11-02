@@ -10,6 +10,7 @@ import com.example.domain.location.model.Location
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
 import kotlin.coroutines.resumeWithException
@@ -20,6 +21,7 @@ class AndroidGpsLocationGateWay @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
 
+    @ExperimentalCoroutinesApi
     override suspend fun lastLocation(): Location {
         val hasAccessFineLocation = ActivityCompat.checkSelfPermission(
             context,

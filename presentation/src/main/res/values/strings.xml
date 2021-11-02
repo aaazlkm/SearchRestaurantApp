@@ -17,6 +17,7 @@
     <string name="shop_list_empty_sub_title">検索条件を変えてみてください</string>
     <string name="shop_list_preparing_title">検索条件を指定してください</string>
     <string name="shop_list_preparing_sub_title">上の検索バーから検索できます</string>
+    <string name="shop_list_error_title">エラーが発生しました</string>
     <string name="shop_list_search_bar_hint">検索</string>
     <string name="shop_list_modal_title">検索条件</string>
     <string name="shop_list_modal_search_range">検索範囲</string>
@@ -34,4 +35,5 @@
     <string name="shop_single_info_access">アクセス</string>
     <string name="shop_single_info_address">住所</string>
     <string name="shop_single_info_capacity">総席数</string>
+    <string name="shop_single_error_title">エラーが発生しました</string>
 </resources>

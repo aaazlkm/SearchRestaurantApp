@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.SearchRange
-import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.R
+import com.example.presentation.core.theme.AppThemeWithBackground
 
 val bottomSheetHorizontalPadding = 24.dp
 
@@ -57,7 +57,7 @@ fun BottomSheetContent(
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(
-                    horizontal = bottomSheetHorizontalPadding,
+                    vertical = 4.dp
                 ),
             )
         }

@@ -81,7 +81,7 @@ dependencies {
 
     implementation dependency.accompanist.insets
     implementation dependency.accompanist.permissions
-
+    implementation dependency.accompanist.systemuicontroller
 
     implementation dependency.android.material
     implementation dependency.android.location

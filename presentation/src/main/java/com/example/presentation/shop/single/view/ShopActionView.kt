@@ -35,8 +35,8 @@ import com.example.domain.core.fake.fakeSearchResult
 import com.example.domain.shop.model.Coupon
 import com.example.domain.shop.model.Shop
 import com.example.domain.shop.model.Urls
-import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.R
+import com.example.presentation.core.theme.AppThemeWithBackground
 
 @Composable
 fun ShopActionView(
