@@ -14,16 +14,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.SearchRange
 import com.example.presentation.AppThemeWithBackground
 import com.example.presentation.R
-import com.example.presentation.shop.list.model.SearchQueryBuilder
 
 val bottomSheetHorizontalPadding = 24.dp
 
 @Composable
 fun BottomSheetContent(
-    searchQueryBuilder: SearchQueryBuilder,
+    searchQueryBuilder: SearchQuery.Builder,
     onClickSearchRange: (SearchRange) -> Unit,
     onClickSearchButton: () -> Unit,
 ) {
@@ -70,7 +70,7 @@ fun BottomSheetContent(
 fun PreviewBottomSheetContent() {
     AppThemeWithBackground {
         BottomSheetContent(
-            searchQueryBuilder = SearchQueryBuilder(),
+            searchQueryBuilder = SearchQuery.Builder(),
             onClickSearchRange = {},
             onClickSearchButton = {},
         )

@@ -10,6 +10,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.example.domain.core.fake.fakeSearchResult
+import com.example.domain.location.model.Location
 import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.Shop
 import com.example.presentation.AppThemeWithBackground
@@ -19,6 +20,7 @@ import com.example.presentation.shop.list.ErrorView
 import com.example.presentation.shop.list.LoadingItem
 import com.example.presentation.shop.list.LoadingView
 import com.example.presentation.shop.list.model.EmptyImageType
+import com.example.presentation.shop.list.model.SearchState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -34,7 +36,7 @@ fun ShopList(
     LazyColumn {
         item {
             SearchBar(
-                searchQuery = searchQuery,
+                searchState = SearchState.Searching(searchQuery, pagingDataFlow),
                 onClick = onClickSearchBar,
             )
         }
@@ -86,7 +88,7 @@ fun ShopList(
 fun PreviewShopList() {
     AppThemeWithBackground {
         ShopList(
-            searchQuery = SearchQuery(),
+            searchQuery = SearchQuery(Location(latitude = 35.6938, longitude = 139.7034)),
             pagingDataFlow = flow { PagingData.from(fakeSearchResult().shops) },
             emptyImageType = EmptyImageType.CAKE,
             onClickShopItem = {},

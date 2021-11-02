@@ -2,23 +2,19 @@ package com.example.presentation.shop.list.viewmodel
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
-import androidx.paging.PagingData
 import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.SearchRange
-import com.example.domain.shop.model.Shop
 import com.example.presentation.core.UnidirectionalViewModel
 import com.example.presentation.shop.list.model.EmptyImageType
-import com.example.presentation.shop.list.model.SearchQueryBuilder
+import com.example.presentation.shop.list.model.SearchState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
 
 interface ShopListViewModel :
     UnidirectionalViewModel<ShopListViewModel.Event, ShopListViewModel.Effect, ShopListViewModel.State> {
     data class State(
-        val searchQueryBuilder: SearchQueryBuilder = SearchQueryBuilder(),
-        val searchQuery: SearchQuery = SearchQuery(),
-        val shopPagindDataFlow: Flow<PagingData<Shop>> = flow { PagingData.empty<Shop>() },
+        val searchQueryBuilder: SearchQuery.Builder = SearchQuery.Builder(),
+        val searchState: SearchState = SearchState.Preparing,
         val emptyImageType: EmptyImageType = EmptyImageType.SUSHI,
     )
 

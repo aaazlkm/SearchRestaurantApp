@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.paging.PagingData
 import com.example.domain.shop.model.SearchQuery
 import com.example.domain.shop.model.SearchRange
 import com.example.domain.shop.model.Shop
@@ -40,14 +39,14 @@ import com.example.presentation.R
 import com.example.presentation.core.use
 import com.example.presentation.dialog.SystemSettingDialog
 import com.example.presentation.shop.list.model.EmptyImageType
-import com.example.presentation.shop.list.model.SearchQueryBuilder
+import com.example.presentation.shop.list.model.SearchState
 import com.example.presentation.shop.list.view.BottomSheetContent
+import com.example.presentation.shop.list.view.SearchPreparingView
 import com.example.presentation.shop.list.view.ShopList
 import com.example.presentation.shop.list.viewmodel.ShopListViewModel
 import com.example.presentation.shop.list.viewmodel.shopListViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -97,8 +96,7 @@ fun ShopListScreen(
         scaffoldState = scaffoldState,
         sheetState = sheetState,
         searchQueryBuilder = state.searchQueryBuilder,
-        searchQuery = state.searchQuery,
-        pagingDataFlow = state.shopPagindDataFlow,
+        searchState = state.searchState,
         systemSettingDialogVisible = systemSettingDialogVisible.value,
         emptyImageType = state.emptyImageType,
         onClickShopItem = onClickShopItem,
@@ -127,9 +125,8 @@ fun ShopListScreen(
     scaffoldState: ScaffoldState,
     sheetState: ModalBottomSheetState,
     systemSettingDialogVisible: Boolean,
-    searchQueryBuilder: SearchQueryBuilder,
-    searchQuery: SearchQuery,
-    pagingDataFlow: Flow<PagingData<Shop>>,
+    searchQueryBuilder: SearchQuery.Builder,
+    searchState: SearchState,
     emptyImageType: EmptyImageType,
     onClickShopItem: (Shop) -> Unit,
     onClickSearchBar: () -> Unit,
@@ -151,13 +148,19 @@ fun ShopListScreen(
             scaffoldState = scaffoldState,
             content = {
                 Box {
-                    ShopList(
-                        searchQuery = searchQuery,
-                        pagingDataFlow = pagingDataFlow,
-                        emptyImageType = emptyImageType,
-                        onClickShopItem = onClickShopItem,
-                        onClickSearchBar = onClickSearchBar,
-                    )
+                    when (searchState) {
+                        is SearchState.Preparing -> SearchPreparingView(
+                            searchState = searchState,
+                            onClickSearchBar = onClickSearchBar,
+                        )
+                        is SearchState.Searching -> ShopList(
+                            searchQuery = searchState.searchQuery,
+                            pagingDataFlow = searchState.shopPagingDataFlow,
+                            emptyImageType = emptyImageType,
+                            onClickShopItem = onClickShopItem,
+                            onClickSearchBar = onClickSearchBar,
+                        )
+                    }
                 }
             }
         )
