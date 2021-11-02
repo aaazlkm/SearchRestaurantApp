@@ -16,6 +16,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.domain.shop.model.SearchQuery
@@ -44,6 +46,7 @@ fun ShopListScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val hapticFeedback = LocalHapticFeedback.current
     val coroutineScope = rememberCoroutineScope()
     val (
         state,
@@ -93,6 +96,10 @@ fun ShopListScreen(
             }
         },
         onClickSearchRange = {
+            // FIXME:
+            // textHandleMoveは適していないかもしれないが、現状で他に選択肢がないのでこのままにする
+            // 他にいい方法があったらそちらに変える
+            hapticFeedback.performHapticFeedback(HapticFeedbackType.TextHandleMove)
             dispatch(ShopListViewModel.Event.ChangeSearchRange(it))
         },
         onClickSearchButton = {
